@@ -1,0 +1,18 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+# Environments
+.venv/
+env/
+venv/
+
+# Database / Secrets
+.env
+*.sql.gz
+*.log
+
+# Project specific
+output/
+*.docx
+*.txt
