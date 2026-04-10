@@ -54,4 +54,14 @@ docker compose up -d
 ## Python Setup
 ### Installation
 ```bash
+sudo apt update
+sudo apt install -y python3 python3-pip python3-venv
+```
+
+### Virtual Environment and Pip Install Dependencies
+```bash
+python3 -m venv venv
+source venv/bin/activate
+
+pip install "psycopg[binary]" python-dotenv pandas
 ```
