@@ -1,0 +1,5 @@
+table_name,column_id_name,columns,foreign_keys,many_to_many_primary_keys
+courses,course_id,course_name|TEXT NOT NULL,,
+essay_questions,question_id,course_id|INTEGER NOT NULL||question_text|TEXT NOT NULL,fk_course|course_id|courses,
+essay_test_sheets,test_id,course_id|INTEGER NOT NULL||created_at|TIMESTAMP DEFAULT CURRENT_TIMESTAMP,fk_course|course_id|courses,
+essay_test_sheet_questions,,test_id|INTEGER NOT NULL||question_id|INTEGER NOT NULL||created_at|TIMESTAMP DEFAULT CURRENT_TIMESTAMP,fk_test|test_id|essay_test_sheets||fk_question|question_id|essay_questions,pk_test_sheet_question|test_id|question_id
