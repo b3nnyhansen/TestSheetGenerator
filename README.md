@@ -65,3 +65,9 @@ source venv/bin/activate
 
 pip install "psycopg[binary]" python-dotenv pandas
 ```
+
+## Pandoc Installation
+```bash
+sudo apt-get update
+sudo apt-get install pandoc
+```
