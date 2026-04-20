@@ -1,0 +1,27 @@
+{
+    "essay_questions": [
+        {
+            "course_name": "Mathematical Logic",
+            "questions": [
+                {
+                    "sub_course_name": "Sum of Product Expansion",
+                    "question_text": [
+                        "Write the sum-of-product expansion of $F(v, w, x, y, z) = (v + w)(x + \\overline{y} + z)$."
+                    ]
+                },
+                {
+                    "sub_course_name": "Product of Sum Expansion",
+                    "question_text": [
+                        "Write the product-of-sum expansion of $F(v, w, x, y, z) = \\overline{v}w + x\\overline{z}$."
+                    ]
+                },
+                {
+                    "sub_course_name": "Dual Principle",
+                    "question_text": [
+                        "Write the dual of the boolean expression: $x(y + 0) + \\overline{z} \\cdot 1$."
+                    ]
+                }
+            ]
+        }
+    ]
+}
