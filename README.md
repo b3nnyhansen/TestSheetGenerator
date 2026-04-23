@@ -1,5 +1,5 @@
 # Test Sheet Generator
-A project to store test questions and generate test sheet contents, deployed in Linux environment.
+A headless project to store test questions and generate test sheet contents, deployed in Linux environment.
 
 ## Docker Setup
 ### Installation

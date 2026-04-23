@@ -9,11 +9,13 @@ with open(CONTENT_DATA_PATH, "r") as f:
 
 BASE_CHECK_QUERY = "SELECT * FROM {} WHERE {} = '{}';"
 COURSE_TABLE_NAME = "courses"
+COURSE_TABLE_ID_COLUMN = "course_id"
 COURSE_TABLE_NAME_COLUMN = "course_name"
 SUB_COURSE_TABLE_NAME = "sub_courses"
 SUB_COURSE_TABLE_ID_COLUMN = "sub_course_id"
 SUB_COURSE_TABLE_NAME_COLUMN = "sub_course_name"
 COURSE_INSERT_QUERY = "INSERT INTO {} ({}) VALUES ('{}');"
+SUB_COURSE_INSERT_QUERY = "INSERT INTO {} ({}, {}) VALUES ({}, '{}');"
 QUESTION_TABLE_TEXT_COLUMN = "question_text"
 QUESTION_TABLE_CHECKSUM_COLUMN = "checksum"
 QUESTION_INSERT_QUERY = "INSERT INTO {} ({}, {}, {}) VALUES ({}, '{}', '{}');"
@@ -44,6 +46,18 @@ def insert_content_data():
 
                 print(f"Successfully inserting {COURSE_TABLE_NAME_COLUMN} = '{course_name}' into the database")
 
+                res, err = ddb.run_sql(
+                    BASE_CHECK_QUERY.format(
+                        COURSE_TABLE_NAME, COURSE_TABLE_NAME_COLUMN, course_name
+                    )
+                )
+            
+            try:
+                course_id = res[0][0]
+            except:
+                print(f"Fail to fetch id from {COURSE_TABLE_NAME_COLUMN} = '{course_name}'. Skipping the insertion of questions.")
+                continue
+
             questions = item["questions"]
             for question in questions:
                 sub_course_name = question["sub_course_name"]
@@ -58,7 +72,7 @@ def insert_content_data():
                     continue
                 
                 if not res:
-                    _, err = ddb.run_sql(COURSE_INSERT_QUERY.format(SUB_COURSE_TABLE_NAME, SUB_COURSE_TABLE_NAME_COLUMN, sub_course_name))
+                    _, err = ddb.run_sql(SUB_COURSE_INSERT_QUERY.format(SUB_COURSE_TABLE_NAME, COURSE_TABLE_ID_COLUMN, SUB_COURSE_TABLE_NAME_COLUMN, course_id, sub_course_name))
                     if err:
                         print(f"Failing to insert {SUB_COURSE_TABLE_NAME_COLUMN} = '{sub_course_name}' because of an error: {err}")
                         continue
