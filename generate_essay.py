@@ -25,7 +25,8 @@ def main():
     generate_test_from_config()
 
 def generate_test_from_config():
-    for config in CONFIG:
+    generate_config = CONFIG["generate"]
+    for config in generate_config:
         course_name = config["course_name"]
 
         res, err = ddb.run_sql(
@@ -104,6 +105,7 @@ def generate_test_from_config():
                     print(f"Failing to insert ({cur_count}/{item_count}) '{sub_course_name}' question for test sheet {{{test_id}}} because of an error: {err}")
                     continue
                 print(f"Successfully inserting ({cur_count}/{item_count}) '{sub_course_name}' question for test sheet {{{test_id}}} into the database")
+    return 
 
 if __name__ == "__main__":
     main()

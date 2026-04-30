@@ -1,19 +1,24 @@
-[
-    {
-        "course_name": "Logika Matematika",
-        "test_configs": [
-            {
-                "sub_course_name": "Ekspansi Sum of Product",
-                "item_count": 4
-            },
-            {
-                "sub_course_name": "Ekspansi Product of Sum",
-                "item_count": 4
-            },
-            {
-                "sub_course_name": "Dual Ekspresi Boolean",
-                "item_count": 2
-            }
-        ]
-    }
-]
+{
+    "generate": [
+        {
+            "course_name": "Logika Matematika",
+            "test_configs": [
+                {
+                    "sub_course_name": "Ekspansi Sum of Product",
+                    "item_count": 4
+                },
+                {
+                    "sub_course_name": "Ekspansi Product of Sum",
+                    "item_count": 4
+                },
+                {
+                    "sub_course_name": "Dual Ekspresi Boolean",
+                    "item_count": 2
+                }
+            ]
+        }
+    ],
+    "render": [
+        {"course_name":"Logika Matematika"}
+    ]
+}
