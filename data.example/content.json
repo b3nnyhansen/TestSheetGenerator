@@ -23,5 +23,24 @@
                 }
             ]
         }
+    ],
+    "mcq_4_questions": [
+        {
+            "course_name": "Mathematical Logic",
+            "questions": [
+                {
+                    "sub_course_name": "Sum of Product Expansion",
+                    "question_items": [
+                        {
+                            "question_text": "Which canonical sum-of-product expression that is not a member of $F(v, w, x, y, z) = (w\\overline{z})(\\overline{x}y + x\\overline{y})$?",
+                            "answer_text": "$vwxyz$",
+                            "alt_answer_text_1": "$vwx\\overline{y}\\overline{z}$",
+                            "alt_answer_text_2": "$vw\\overline{x}y\\overline{z}$",
+                            "alt_answer_text_3": "$\\overline{v}w\\overline{x}y\\overline{z}$"
+                        }
+                    ]
+                }
+            ]
+        }
     ]
 }
