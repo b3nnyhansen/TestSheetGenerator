@@ -38,7 +38,7 @@ def main():
     render_test_from_config()
 
 def render_test_from_config():
-    render_config = CONFIG["generate"]
+    render_config = CONFIG["generate"][QUESTION_TABLE_NAME]
     for config_idx, config in enumerate(render_config):
         course_name = config["course_name"]
 

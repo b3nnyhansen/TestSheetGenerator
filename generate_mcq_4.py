@@ -1,5 +1,6 @@
 import json
 import docker_db as ddb
+import random
 
 CONFIG_DATA_PATH = "./data/config.json"
 with open(CONFIG_DATA_PATH, "r") as f:
@@ -12,17 +13,23 @@ COURSE_TABLE_NAME_COLUMN = "course_name"
 SUB_COURSE_TABLE_NAME = "sub_courses"
 SUB_COURSE_TABLE_ID_COLUMN = "sub_course_id"
 SUB_COURSE_TABLE_NAME_COLUMN = "sub_course_name"
-QUESTION_TABLE_NAME = "essay_questions"
+QUESTION_TABLE_NAME = "mcq_4_questions"
 QUESTION_TABLE_ID_COLUMN = "question_id"
 QUESTION_FETCH_QUERY = "SELECT {} FROM {} WHERE {} = {} ORDER BY RANDOM() LIMIT {};"
-TEST_SHEET_TABLE_NAME = "essay_test_sheets"
+TEST_SHEET_TABLE_NAME = "mcq_4_test_sheets"
 TEST_SHEET_ID_COLUMN = "test_id"
 TEST_SHEET_INSERT_QUERY = "INSERT INTO {} ({}) VALUES ({}) RETURNING {};"
-TEST_SHEET_QUESTION_TABLE_NAME = "essay_test_sheet_questions"
-TEST_SHEET_QUESTION_INSERT_QUERY = "INSERT INTO {} ({}, {}) VALUES ({}, {});"
+TEST_SHEET_QUESTION_TABLE_NAME = "mcq_4_test_sheet_questions"
+TEST_SHEET_QUESTION_INSERT_QUERY = "INSERT INTO {} ({}, {}, {}, {}, {}, {}, {}) VALUES ({}, {}, {}, {}, {}, {}, {});"
 
 def main():
     generate_test_from_config()
+
+def randomize_answer():
+    option_list = [0, 1, 2, 3]
+    random.shuffle(option_list)
+    answer_index = option_list.index(0)
+    return answer_index, option_list
 
 def generate_test_from_config():
     generate_config = CONFIG["generate"][QUESTION_TABLE_NAME]
@@ -94,10 +101,16 @@ def generate_test_from_config():
             for row in res:
                 cur_count += 1
                 question_id = row[0]
+
+                answer_index, option_list = randomize_answer()
+
                 _, err = ddb.run_sql(
                     TEST_SHEET_QUESTION_INSERT_QUERY.format(
-                        TEST_SHEET_QUESTION_TABLE_NAME, TEST_SHEET_ID_COLUMN, QUESTION_TABLE_ID_COLUMN,
-                        test_id, question_id
+                        TEST_SHEET_QUESTION_TABLE_NAME,
+                        TEST_SHEET_ID_COLUMN, QUESTION_TABLE_ID_COLUMN, TEST_SHEET_QUESTION_ANSWER_INDEX,
+                        TEST_SHEET_QUESTION_ANSWER_OPTION_A, TEST_SHEET_QUESTION_ANSWER_OPTION_B, TEST_SHEET_QUESTION_ANSWER_OPTION_C, TEST_SHEET_QUESTION_ANSWER_OPTION_D,
+                        test_id, question_id,
+                        answer_index, option_list[0], option_list[1], option_list[2], option_list[3]
                     )
                 )
 
